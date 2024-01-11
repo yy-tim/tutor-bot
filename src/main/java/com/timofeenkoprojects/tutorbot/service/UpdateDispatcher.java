@@ -22,7 +22,7 @@ public class UpdateDispatcher {
     final MessageHander messageHandler;
     final CommandHandler commandHandler;
     final CallbackQueryHandler callbackQueryHandler;
-    final UserRepo userRepo;
+
 
     @Autowired
     public UpdateDispatcher(MessageHander messageHander,
@@ -31,7 +31,7 @@ public class UpdateDispatcher {
         this.messageHandler = messageHander;
         this.commandHandler = commandHandler;
         this.callbackQueryHandler = callbackQueryHandler;
-        this.userRepo = userRepo;
+
     }
 
     public BotApiMethod<?> distribute(Update update, Bot bot) {
@@ -41,9 +41,6 @@ public class UpdateDispatcher {
         if (update.hasMessage()) {
             Message message = update.getMessage();
             if (message.hasText()) {
-                userRepo.save(User.builder()
-                        .chatId(message.getChatId())
-                        .build());
                 if (message.getText().charAt(0) == '/') {
                     return commandHandler.answer(message, bot);
                 }

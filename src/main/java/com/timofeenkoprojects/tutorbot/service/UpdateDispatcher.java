@@ -1,10 +1,9 @@
 package com.timofeenkoprojects.tutorbot.service;
 
-import com.timofeenkoprojects.tutorbot.entity.user.User;
 import com.timofeenkoprojects.tutorbot.repository.UserRepo;
 import com.timofeenkoprojects.tutorbot.service.handler.CallbackQueryHandler;
 import com.timofeenkoprojects.tutorbot.service.handler.CommandHandler;
-import com.timofeenkoprojects.tutorbot.service.handler.MessageHander;
+import com.timofeenkoprojects.tutorbot.service.handler.MessageHandler;
 import com.timofeenkoprojects.tutorbot.telegram.Bot;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -19,16 +18,16 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Slf4j
 public class UpdateDispatcher {
-    final MessageHander messageHandler;
+    final MessageHandler messageHandler;
     final CommandHandler commandHandler;
     final CallbackQueryHandler callbackQueryHandler;
 
 
     @Autowired
-    public UpdateDispatcher(MessageHander messageHander,
+    public UpdateDispatcher(MessageHandler messageHandler,
                             CommandHandler commandHandler,
                             CallbackQueryHandler callbackQueryHandler, UserRepo userRepo) {
-        this.messageHandler = messageHander;
+        this.messageHandler = messageHandler;
         this.commandHandler = commandHandler;
         this.callbackQueryHandler = callbackQueryHandler;
 
@@ -47,7 +46,7 @@ public class UpdateDispatcher {
             }
             return messageHandler.answer(message, bot);
         }
-        log.info("Unsopported update: " + update);
+        log.info("Unsupported update:" + update);
         return null;
     }
 }

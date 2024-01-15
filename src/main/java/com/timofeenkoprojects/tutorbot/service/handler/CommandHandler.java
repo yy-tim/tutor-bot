@@ -1,9 +1,10 @@
 package com.timofeenkoprojects.tutorbot.service.handler;
 
-
 import com.timofeenkoprojects.tutorbot.service.manager.feedback.FeedbackManager;
 import com.timofeenkoprojects.tutorbot.service.manager.help.HelpManager;
+import com.timofeenkoprojects.tutorbot.service.manager.profile.ProfileManager;
 import com.timofeenkoprojects.tutorbot.service.manager.progress_control.ProgressControlManager;
+import com.timofeenkoprojects.tutorbot.service.manager.search.SearchManager;
 import com.timofeenkoprojects.tutorbot.service.manager.start.StartManager;
 import com.timofeenkoprojects.tutorbot.service.manager.task.TaskManager;
 import com.timofeenkoprojects.tutorbot.service.manager.timetable.TimetableManager;
@@ -27,19 +28,26 @@ public class CommandHandler {
     final FeedbackManager feedbackManager;
     final HelpManager helpManager;
     final StartManager startManager;
+    final ProfileManager profileManager;
     final TimetableManager timetableManager;
     final TaskManager taskManager;
+    final SearchManager searchManager;
     final ProgressControlManager progressControlManager;
-
     @Autowired
     public CommandHandler(FeedbackManager feedbackManager,
                           HelpManager helpManager,
-                          StartManager startManager, TimetableManager timetableManager, TaskManager taskManager, ProgressControlManager progressControlManager) {
+                          StartManager startManager,
+                          ProfileManager profileManager,
+                          TimetableManager timetableManager,
+                          TaskManager taskManager, SearchManager searchManager,
+                          ProgressControlManager progressControlManager) {
         this.feedbackManager = feedbackManager;
         this.helpManager = helpManager;
         this.startManager = startManager;
+        this.profileManager = profileManager;
         this.timetableManager = timetableManager;
         this.taskManager = taskManager;
+        this.searchManager = searchManager;
         this.progressControlManager = progressControlManager;
     }
 
@@ -63,6 +71,12 @@ public class CommandHandler {
             }
             case PROGRESS -> {
                 return progressControlManager.answerCommand(message, bot);
+            }
+            case PROFILE -> {
+                return profileManager.answerCommand(message, bot);
+            }
+            case SEARCH -> {
+                return searchManager.answerCommand(message, bot);
             }
             default -> {
                 return defaultAnswer(message);

@@ -1,7 +1,11 @@
 package com.timofeenkoprojects.tutorbot.service.handler;
 
+import com.timofeenkoprojects.tutorbot.service.manager.auth.AuthManager;
 import com.timofeenkoprojects.tutorbot.service.manager.feedback.FeedbackManager;
 import com.timofeenkoprojects.tutorbot.service.manager.help.HelpManager;
+import com.timofeenkoprojects.tutorbot.service.manager.profile.ProfileManager;
+import com.timofeenkoprojects.tutorbot.service.manager.progress_control.ProgressControlManager;
+import com.timofeenkoprojects.tutorbot.service.manager.search.SearchManager;
 import com.timofeenkoprojects.tutorbot.service.manager.task.TaskManager;
 import com.timofeenkoprojects.tutorbot.service.manager.timetable.TimetableManager;
 import com.timofeenkoprojects.tutorbot.telegram.Bot;
@@ -21,25 +25,51 @@ public class CallbackQueryHandler {
     final FeedbackManager feedbackManager;
     final TimetableManager timetableManager;
     final TaskManager taskManager;
-
+    final AuthManager authManager;
+    final ProfileManager profileManager;
+    final SearchManager searchManager;
+    final ProgressControlManager progressControlManager;
     @Autowired
     public CallbackQueryHandler(HelpManager helpManager,
                                 FeedbackManager feedbackManager,
-                                TimetableManager timetableManager, TaskManager taskManager) {
+                                TimetableManager timetableManager,
+                                TaskManager taskManager,
+                                AuthManager authManager,
+                                ProfileManager profileManager,
+                                SearchManager searchManager,
+                                ProgressControlManager progressControlManager) {
         this.helpManager = helpManager;
         this.feedbackManager = feedbackManager;
         this.timetableManager = timetableManager;
         this.taskManager = taskManager;
+        this.authManager = authManager;
+        this.profileManager = profileManager;
+        this.searchManager = searchManager;
+        this.progressControlManager = progressControlManager;
     }
 
     public BotApiMethod<?> answer(CallbackQuery callbackQuery, Bot bot) {
         String callbackData = callbackQuery.getData();
         String keyWord = callbackData.split("_")[0];
-        if (TIMETABLE.equals(keyWord)){
-            timetableManager.answerCallbackQuery(callbackQuery, bot);
-        }
-        if (TASK.equals(keyWord)){
-            return taskManager.answerCallbackQuery(callbackQuery, bot);
+        switch (keyWord) {
+            case TIMETABLE -> {
+                return timetableManager.answerCallbackQuery(callbackQuery, bot);
+            }
+            case TASK -> {
+                return taskManager.answerCallbackQuery(callbackQuery, bot);
+            }
+            case PROGRESS -> {
+                return progressControlManager.answerCallbackQuery(callbackQuery, bot);
+            }
+            case AUTH -> {
+                return authManager.answerCallbackQuery(callbackQuery, bot);
+            }
+            case PROFILE -> {
+                return profileManager.answerCallbackQuery(callbackQuery, bot);
+            }
+            case SEARCH -> {
+                return searchManager.answerCallbackQuery(callbackQuery, bot);
+            }
         }
         switch (callbackData) {
             case FEEDBACK -> {

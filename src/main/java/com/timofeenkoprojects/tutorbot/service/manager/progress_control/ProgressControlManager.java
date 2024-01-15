@@ -13,7 +13,6 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.List;
-
 import static com.timofeenkoprojects.tutorbot.service.data.CallbackData.*;
 
 @Component
@@ -22,24 +21,20 @@ public class ProgressControlManager extends AbstractManager {
     final AnswerMethodFactory methodFactory;
     final KeyboardFactory keyboardFactory;
 
-
     @Autowired
-    public ProgressControlManager(AnswerMethodFactory methodFactory, KeyboardFactory keyboardFactory) {
+    public ProgressControlManager(AnswerMethodFactory methodFactory,
+                                  KeyboardFactory keyboardFactory) {
         this.methodFactory = methodFactory;
         this.keyboardFactory = keyboardFactory;
     }
-
     @Override
     public BotApiMethod<?> answerCommand(Message message, Bot bot) {
         return mainMenu(message);
     }
-
     @Override
     public BotApiMethod<?> answerMessage(Message message, Bot bot) {
-
         return null;
     }
-
     @Override
     public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery, Bot bot) {
         String callbackData = callbackQuery.getData();
@@ -53,13 +48,11 @@ public class ProgressControlManager extends AbstractManager {
         }
         return null;
     }
-
     private BotApiMethod<?> mainMenu(CallbackQuery callbackQuery) {
         return methodFactory.getEditMessageText(
                 callbackQuery,
                 """
-                        Здесь вы можете увидеть 
-                         """,
+                        Здесь вы можете увидеть""",
                 keyboardFactory.getInlineKeyboard(
                         List.of("Статистика успеваемости"),
                         List.of(1),
@@ -72,7 +65,7 @@ public class ProgressControlManager extends AbstractManager {
         return methodFactory.getSendMessage(
                 message.getChatId(),
                 """
-                        Здесь вы можете увидеть 
+                        Здесь вы можете увидеть
                          """,
                 keyboardFactory.getInlineKeyboard(
                         List.of("Статистика успеваемости"),

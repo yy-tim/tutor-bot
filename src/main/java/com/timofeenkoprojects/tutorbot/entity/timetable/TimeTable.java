@@ -1,9 +1,12 @@
 package com.timofeenkoprojects.tutorbot.entity.timetable;
 
+import com.timofeenkoprojects.tutorbot.entity.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -32,7 +35,25 @@ public class TimeTable {
     @Column(name = "hour")
     Short hour;
 
+    @Column(name = "in_creation")
+    Boolean inCreation;
+
     @Column(name = "minute")
     Short minute;
+
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "timetable_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"),
+            name = "users_timetable"
+    )
+    List<User> users;
+
+    public void addUser(User user) {
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+        users.add(user);
+    }
 
 }

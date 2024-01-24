@@ -20,7 +20,6 @@ public class MainController {
         this.bot = bot;
     }
 
-
     @PostMapping("/")
     public BotApiMethod<?> listener(@RequestBody Update update) {
 

@@ -38,7 +38,8 @@ public class KeyboardFactory {
     public ReplyKeyboardMarkup getReplyKeyboard(
             List<String> text,
             List<Integer> configuration
-    ) { List<KeyboardRow> keyboard = new ArrayList<>();
+    ) {
+        List<KeyboardRow> keyboard = new ArrayList<>();
         int index = 0;
         for (Integer rowNumber : configuration) {
             KeyboardRow row = new KeyboardRow();

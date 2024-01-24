@@ -9,5 +9,6 @@ public abstract class AbstractManager {
 
     public abstract BotApiMethod<?> answerCommand(Message message, Bot bot);
     public abstract BotApiMethod<?> answerMessage(Message message, Bot bot);
-    public abstract BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery, Bot bot);
+    public abstract BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery,
+                                                        Bot bot);
 }

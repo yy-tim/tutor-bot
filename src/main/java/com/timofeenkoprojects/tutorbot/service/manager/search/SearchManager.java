@@ -61,7 +61,6 @@ public class SearchManager extends AbstractManager {
         }
         return null;
     }
-
     @Override
     public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery, Bot bot) {
         switch (callbackQuery.getData()) {
@@ -83,7 +82,7 @@ public class SearchManager extends AbstractManager {
         if (userTwo == null) {
             return methodFactory.getSendMessage(
                     message.getChatId(),
-                    "По данному токену не найдено ни одного пользователя\n\nПовторите попытку",
+                    "По данному токену не найдено ни одного пользователя\n\nПовторите попытку!",
                     keyboardFactory.getInlineKeyboard(
                             List.of("Отмена операции"),
                             List.of(1),
@@ -111,7 +110,7 @@ public class SearchManager extends AbstractManager {
                 "Вы не можете установить соединение с учителем, если и вы им являетесь" +
                         " или то же самое, если вы ученик\n\nПовторите попытку!",
                 keyboardFactory.getInlineKeyboard(
-                        List.of(""),
+                        List.of("Отмена операции"),
                         List.of(1),
                         List.of(SEARCH_CANCEL)
                 )

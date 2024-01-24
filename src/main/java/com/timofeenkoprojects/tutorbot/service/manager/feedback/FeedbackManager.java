@@ -6,10 +6,9 @@ import com.timofeenkoprojects.tutorbot.service.manager.AbstractManager;
 import com.timofeenkoprojects.tutorbot.telegram.Bot;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -19,7 +18,9 @@ public class FeedbackManager extends AbstractManager {
     final AnswerMethodFactory methodFactory;
     final KeyboardFactory keyboardFactory;
 
-    public FeedbackManager(AnswerMethodFactory methodFactory, KeyboardFactory keyboardFactory) {
+    @Autowired
+    public FeedbackManager(AnswerMethodFactory methodFactory,
+                           KeyboardFactory keyboardFactory) {
         this.methodFactory = methodFactory;
         this.keyboardFactory = keyboardFactory;
     }
@@ -34,12 +35,12 @@ public class FeedbackManager extends AbstractManager {
                         """,
                 null
         );
-
     }
-
     @Override
-    public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery, Bot bot) {
-        return methodFactory.getEditMessageText(callbackQuery,
+    public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery,
+                                               Bot bot) {
+        return methodFactory.getEditMessageText(
+                callbackQuery,
                 """
                         Ссылки для обратной связи
                         https://t.me/+WhsUc28brR0xM2E6                        \s

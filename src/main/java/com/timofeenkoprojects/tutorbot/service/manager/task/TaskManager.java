@@ -40,7 +40,8 @@ public class TaskManager extends AbstractManager {
     }
 
     @Override
-    public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery, Bot bot) {
+    public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery,
+                                               Bot bot) {
         String callbackData = callbackQuery.getData();
         switch (callbackData){
             case TASK -> {
@@ -59,8 +60,7 @@ public class TaskManager extends AbstractManager {
         return methodFactory.getSendMessage(
                 message.getChatId(),
                 """
-                        🗂 Вы можете добавить домашнее задание вашему ученику
-                         """,
+                        🗂 Вы можете добавить домашнее задание вашему ученику""",
                 keyboardFactory.getInlineKeyboard(
                         List.of("Прикрепить домашнее задание"),
                         List.of(1),
@@ -93,6 +93,6 @@ public class TaskManager extends AbstractManager {
                         List.of(1),
                         List.of(TASK)
                 )
-                );
+        );
     }
 }

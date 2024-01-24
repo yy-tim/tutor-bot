@@ -6,10 +6,9 @@ import com.timofeenkoprojects.tutorbot.service.manager.AbstractManager;
 import com.timofeenkoprojects.tutorbot.telegram.Bot;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -19,6 +18,7 @@ public class HelpManager extends AbstractManager {
     final AnswerMethodFactory methodFactory;
     final KeyboardFactory keyboardFactory;
 
+    @Autowired
     public HelpManager(AnswerMethodFactory methodFactory,
                        KeyboardFactory keyboardFactory) {
         this.methodFactory = methodFactory;

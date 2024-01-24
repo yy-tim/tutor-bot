@@ -36,7 +36,6 @@ public class UserCreationAspect {
     @Pointcut("execution(* com.timofeenkoprojects.tutorbot.service.UpdateDispatcher.distribute(..))")
     public void distributeMethodPointcut() {
     }
-
     @Around("distributeMethodPointcut()")
     public Object distributeMethodAdvice(ProceedingJoinPoint joinPoint)
             throws Throwable {
